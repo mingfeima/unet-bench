@@ -17,4 +17,4 @@ echo -e "### using KMP_BLOCKTIME=$KMP_BLOCKTIME\n"
 
 # if intended to run on CPU, need to specify --no-cuda on machine with CUDA support
 # the code runs on GPU by default if CUDA is available
-python -u benchmark.py --batch-size 16 --prof
+python -u benchmark.py --batch-size 16
