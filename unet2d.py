@@ -206,8 +206,8 @@ class UNet(nn.Module):
     @staticmethod
     def weight_init(m):
         if isinstance(m, nn.Conv2d):
-            init.xavier_normal(m.weight)
-            init.constant(m.bias, 0)
+            init.xavier_normal_(m.weight)
+            init.constant_(m.bias, 0)
 
 
 

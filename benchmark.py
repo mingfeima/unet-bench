@@ -7,13 +7,14 @@ import torch.optim as optim
 from time import time
 
 from unet2d import UNet
+from unet3d import UNet3D
 
 parser = argparse.ArgumentParser(description='UNet3D benchmark')
 parser.add_argument('--no-cuda', action='store_true', default=False,
                    help='disable CUDA')
 parser.add_argument('--batch-size', default=16, type=int,
                    help='batch size')
-parser.add_argument('--in-channel', default=3, type=int,
+parser.add_argument('--in-channel', default=32, type=int,
                    help='input channel')
 parser.add_argument('--prof', action='store_true', default=False,
                    help='enable autograd profiler')
@@ -38,13 +39,15 @@ print('Running on device: %s' % (device_name))
 def main():
     n = args.batch_size
     c = args.in_channel
-    h = 512
-    w = 512
-    print('Model UNet, [N,C,H,W] = [%d,%d,%d,%d]' % (n, c, h, w))
+    h = 128
+    w = 128
+    d = 128
+    print('Model UNet, [N,C,H,W,D] = [%d,%d,%d,%d,%d]' % (n, c, h, w, d))
 
-    data_ = torch.randn(n, c, h, w)
+    data_ = torch.randn(n, c, h, w, d)
     target_ = torch.arange(1, n+1).long()
-    net = UNet(3, depth=5, merge_mode='concat')
+    #net = UNet(3, depth=5, merge_mode='concat')
+    net = UNet3D(in_channel=args.in_channel, n_classes=6)
     optimizer = optim.SGD(net.parameters(), lr=0.01)
 
     if args.cuda:

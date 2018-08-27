@@ -71,7 +71,6 @@ class UNet3D(nn.Module):
         e7 = self.ec7(e6)
         del e5, e6
 
-        print(self.dc9(e7).size(), syn2.size())
         d9 = torch.cat((self.dc9(e7), syn2), dim=1)
         del e7, syn2
 
